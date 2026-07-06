@@ -1,0 +1,342 @@
+[
+  {
+    "number": 1,
+    "id": "alto-cafe",
+    "title": "Alto Cafe",
+    "address": "Караванная ул., 5",
+    "coords": [
+      59.9349656,
+      30.3410173
+    ]
+  },
+  {
+    "number": 2,
+    "id": "asiatiq",
+    "title": "Asiatiq",
+    "address": "Большая Зеленина ул., 9",
+    "coords": [
+      59.9602976,
+      30.2942707
+    ]
+  },
+  {
+    "number": 3,
+    "id": "k-30",
+    "title": "К-30",
+    "address": "ул. Красного Текстильщика, 10-12",
+    "coords": [
+      59.9389423,
+      30.3955717
+    ]
+  },
+  {
+    "number": 4,
+    "id": "cecile",
+    "title": "Cécile",
+    "address": "Кожевенная линия, 34",
+    "coords": [
+      59.9231512,
+      30.2437984
+    ]
+  },
+  {
+    "number": 5,
+    "id": "kuta-x-chang",
+    "title": "Kuta x Chang",
+    "address": "ул. Некрасова, 1/38",
+    "coords": [
+      59.9387893,
+      30.3499259
+    ]
+  },
+  {
+    "number": 6,
+    "id": "core-hot-yoga",
+    "title": "Core Hot Yoga",
+    "address": "Невский пр., 118",
+    "coords": [
+      59.9324304,
+      30.3624177
+    ]
+  },
+  {
+    "number": 7,
+    "id": "kgallery",
+    "title": "KGallery",
+    "address": "наб. реки Фонтанки, 24",
+    "coords": [
+      59.9397997,
+      30.3423857
+    ]
+  },
+  {
+    "number": 8,
+    "id": "kono",
+    "title": "Kono",
+    "address": "ул. Восстания, 11",
+    "coords": [
+      59.9335768,
+      30.3604946
+    ]
+  },
+  {
+    "number": 9,
+    "id": "kiks",
+    "title": "Kiks",
+    "address": "ул. Марата, 56-58, лит. Б",
+    "coords": [
+      59.921989,
+      30.3494284
+    ]
+  },
+  {
+    "number": 10,
+    "id": "luco",
+    "title": "LuCo",
+    "address": "ул. Короленко, 3",
+    "coords": [
+      59.9411721,
+      30.3501205
+    ]
+  },
+  {
+    "number": 11,
+    "id": "ohaus",
+    "title": "ohaüs",
+    "address": "ул. Академика Крылова, 4А, лит. А",
+    "coords": [
+      59.9858982,
+      30.2994025
+    ]
+  },
+  {
+    "number": 12,
+    "id": "orthodox",
+    "title": "Orthodox",
+    "address": "ул. Восстания, 4",
+    "coords": [
+      59.932907,
+      30.3597246
+    ]
+  },
+  {
+    "number": 13,
+    "id": "ossu",
+    "title": "Ossu",
+    "address": "ул. Некрасова, 21",
+    "coords": [
+      59.9384088,
+      30.3580834
+    ]
+  },
+  {
+    "number": 14,
+    "id": "out-cinema",
+    "title": "Out Cinema",
+    "address": "Ковенский пер., 14",
+    "coords": [
+      59.9379448,
+      30.3591174
+    ]
+  },
+  {
+    "number": 15,
+    "id": "do-immigration",
+    "title": "Do Immigration",
+    "address": "ул. Восстания, дом уточнить",
+    "coords": [
+      59.9382222,
+      30.3591932
+    ]
+  },
+  {
+    "number": 16,
+    "id": "sea-wolves",
+    "title": "Sea Wolves",
+    "address": "Садовая ул., 62",
+    "coords": [
+      59.9207226,
+      30.3004564
+    ]
+  },
+  {
+    "number": 17,
+    "id": "tsunami",
+    "title": "Tsunami",
+    "address": "ул. Восстания, 1Т",
+    "coords": [
+      59.9322136,
+      30.3611885
+    ]
+  },
+  {
+    "number": 18,
+    "id": "pinkie-pie",
+    "title": "Pinkie Pie",
+    "address": "Лиговский пр., 74, Лофт-проект «Этажи»",
+    "coords": [
+      59.9218928,
+      30.3560788
+    ]
+  },
+  {
+    "number": 19,
+    "id": "vitya",
+    "title": "Витя",
+    "address": "ул. Восстания, 19",
+    "coords": [
+      59.9353716,
+      30.36071
+    ]
+  },
+  {
+    "number": 20,
+    "id": "drinkit-griboedova",
+    "title": "Дринкит на Грибоедова",
+    "address": "наб. канала Грибоедова, 26А",
+    "coords": [
+      59.932999,
+      30.325855
+    ]
+  },
+  {
+    "number": 21,
+    "id": "yoga-brusnitsyn",
+    "title": "Йога в Брусницыне",
+    "address": "Кожевенная линия, 30",
+    "coords": [
+      59.922188,
+      30.2513166
+    ]
+  },
+  {
+    "number": 22,
+    "id": "vivo",
+    "title": "Vivo",
+    "address": "Газовая ул., 10, лит. Н",
+    "coords": [
+      59.9665878,
+      30.2926459
+    ]
+  },
+  {
+    "number": 23,
+    "id": "avrora",
+    "title": "Аврора",
+    "address": "Невский пр., 60",
+    "coords": [
+      59.9342232,
+      30.3389432
+    ]
+  },
+  {
+    "number": 24,
+    "id": "yellow-yard",
+    "title": "Желтый двор",
+    "address": "ул. Маяковского, 15",
+    "coords": [
+      59.9378979,
+      30.3560068
+    ]
+  },
+  {
+    "number": 25,
+    "id": "brodsky-half-rooms",
+    "title": "Конец прекрасной эпохи + Полторы комнаты",
+    "address": "ул. Короленко, 14",
+    "coords": [
+      59.9427967,
+      30.3502925
+    ]
+  },
+  {
+    "number": 26,
+    "id": "paradnaya",
+    "title": "Парадная",
+    "address": "Кирочная ул., 7",
+    "coords": [
+      59.9436076,
+      30.3537454
+    ]
+  },
+  {
+    "number": 27,
+    "id": "mayakovka-kozhevennaya",
+    "title": "Маяковка на Кожевенной",
+    "address": "Кожевенная линия, 40",
+    "coords": [
+      59.924954,
+      30.2410438
+    ]
+  },
+  {
+    "number": 28,
+    "id": "mechtateli",
+    "title": "Мечтатели",
+    "address": "наб. реки Фонтанки, 11",
+    "coords": [
+      59.9368203,
+      30.3428851
+    ]
+  },
+  {
+    "number": 29,
+    "id": "puri-guli",
+    "title": "Puri Guli",
+    "address": "Невский пр., 32-34",
+    "coords": [
+      59.9356088,
+      30.329101
+    ]
+  },
+  {
+    "number": 30,
+    "id": "selsky-pub",
+    "title": "Сельский паб",
+    "address": "2-я Дачная ул., 3",
+    "coords": [
+      60.1851459,
+      29.8108803
+    ]
+  },
+  {
+    "number": 31,
+    "id": "udelka",
+    "title": "Уделка",
+    "address": "Фермское шоссе, 41",
+    "coords": [
+      60.0178107,
+      30.3123076
+    ]
+  },
+  {
+    "number": 32,
+    "id": "utopist",
+    "title": "Утопист",
+    "address": "Ковенский пер., 14",
+    "coords": [
+      59.9376685,
+      30.359085
+    ]
+  },
+  {
+    "number": 33,
+    "id": "kruch",
+    "title": "Kruch",
+    "address": "ул. Блохина, 6/3",
+    "coords": [
+      59.9503642,
+      30.3034158
+    ]
+  },
+  {
+    "number": 34,
+    "id": "yui",
+    "title": "Юи",
+    "address": "наб. реки Карповки, 5, к. 36",
+    "coords": [
+      59.9691401,
+      30.3173107
+    ]
+  }
+]

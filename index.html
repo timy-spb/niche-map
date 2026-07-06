@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>тайми — нишевая карта Петербурга</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800;900&display=swap" rel="stylesheet">
+<script src="https://api-maps.yandex.ru/2.1/?apikey=cf6b4e3f-1f3d-4458-ad2c-0de5b9bbd247&lang=ru_RU" type="text/javascript"></script>
+<style>
+  :root{--pink:#FF2E84;--ink:#181513}
+  *{box-sizing:border-box}
+  html,body,#map{height:100%;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif}
+
+  .topbar{position:absolute;top:16px;left:16px;z-index:1000;display:flex;align-items:center;gap:8px}
+  .topbar .logo{font-family:'Unbounded',sans-serif;font-weight:800;font-size:16px;color:#fff;
+    background:var(--pink);padding:9px 16px;letter-spacing:-.01em;box-shadow:0 10px 24px -10px rgba(255,46,132,.55)}
+  .topbar .count{font-size:12.5px;font-weight:600;color:var(--ink);background:#fff;padding:8px 14px;
+    box-shadow:0 8px 20px -10px rgba(24,21,19,.35)}
+
+  .keyhint{position:absolute;bottom:16px;left:16px;z-index:1000;max-width:280px;font-size:11.5px;line-height:1.4;
+    color:#fff;background:rgba(24,21,19,.78);padding:9px 12px;display:none}
+  .keyhint.show{display:block}
+  .keyhint code{background:rgba(255,255,255,.15);padding:1px 5px}
+
+  .balloon-title{font-weight:700;color:var(--pink);font-size:14px;margin:0 0 3px}
+  .balloon-addr{font-size:12.5px;color:#555;margin:0}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="logo">тайми</span>
+  <span class="count" id="count">— мест</span>
+</div>
+<div class="keyhint" id="keyhint">
+  Карта не заработает без своего API-ключа Яндекс.Карт — впишите его в &lt;script src&gt; вместо
+  <code>YANDEX_MAPS_API_KEY_HERE</code>. Получить ключ: <a href="https://developer.tech.yandex.ru/services/3" target="_blank" style="color:#fff">developer.tech.yandex.ru</a>.
+</div>
+
+<div id="map"></div>
+
+<script>
+if (String(document.querySelector('script[src*="api-maps"]').src).includes('YANDEX_MAPS_API_KEY_HERE')) {
+  document.getElementById('keyhint').classList.add('show');
+}
+
+function initMap(){
+  fetch('places_geo.json')
+    .then(function(r){ return r.json(); })
+    .then(function(places){
+      document.getElementById('count').textContent = places.length + ' мест';
+
+      var map = new ymaps.Map('map', {
+        center: [59.94, 30.31],
+        zoom: 11,
+        controls: ['zoomControl', 'geolocationControl']
+      }, { suppressMapOpenBlock: true });
+
+      var clusterer = new ymaps.Clusterer({
+        preset: 'islands#pinkClusterIcons',
+        groupByCoordinates: false,
+        clusterDisableClickZoom: false
+      });
+
+      var placemarks = places.map(function(p){
+        return new ymaps.Placemark(p.coords, {
+          hintContent: p.title,
+          balloonContentHeader: '<div class="balloon-title">' + p.title + '</div>',
+          balloonContentBody: '<div class="balloon-addr">' + p.address + '</div>'
+        }, {
+          preset: 'islands#pinkDotIcon'
+        });
+      });
+
+      clusterer.add(placemarks);
+      map.geoObjects.add(clusterer);
+      map.setBounds(clusterer.getBounds(), { checkZoomRange: true, zoomMargin: 48 });
+    })
+    .catch(function(err){
+      document.getElementById('map').innerHTML =
+        '<div style="padding:40px;font-size:14px;color:#a00">Не получилось загрузить places_geo.json: ' + err + '</div>';
+    });
+}
+
+if (window.ymaps) {
+  ymaps.ready(initMap);
+} else {
+  document.getElementById('map').innerHTML =
+    '<div style="padding:40px;font-size:14px;color:#a00">Yandex Maps API не загрузился — проверьте API-ключ в &lt;script src&gt;.</div>';
+}
+</script>
+
+</body>
+</html>

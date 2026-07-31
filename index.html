@@ -152,18 +152,19 @@ img{display:block;max-width:100%}
 .det.dim .tag{display:none}
 .det.pop{animation:pop .42s cubic-bezier(.2,1.3,.5,1) both}
 
-.mdet{cursor:pointer}
-.mdet .box{position:relative;width:44px;height:36px;border:1.5px solid var(--pink);border-radius:4px;background:rgba(255,255,255,.94);box-shadow:0 6px 16px -8px rgba(24,21,19,.4)}
+.mdet{position:relative;width:38px;height:60px;cursor:pointer;isolation:isolate}
+.mdet .box{position:relative;width:36px;height:36px;margin:0 auto;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--pink);border-radius:6px;background:rgba(255,255,255,.96);box-shadow:0 6px 16px -8px rgba(24,21,19,.4)}
 .mdet .box::before,.mdet .box::after{content:"";position:absolute;width:8px;height:8px;border:2px solid var(--ink);opacity:.7}
 .mdet .box::before{left:-2px;top:-2px;border-right:0;border-bottom:0}
 .mdet .box::after{right:-2px;bottom:-2px;border-left:0;border-top:0}
-.mdet .pin{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:15px;line-height:1}
+.mdet .pin{display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:18px;line-height:1}
 .mdet:hover .box{border-color:var(--ink);box-shadow:0 0 0 4px rgba(255,46,132,.18)}
-.mdet .mtag{position:absolute;left:50%;top:calc(100% + 6px);transform:translateX(-50%);white-space:nowrap;
-  max-width:150px;overflow:hidden;text-overflow:ellipsis;font-family:var(--mono);font-size:10px;color:var(--ink);
-  background:#fff;border:1px solid var(--line);padding:2px 7px;border-radius:6px;
+.mdet .mtag{position:absolute;left:50%;top:41px;transform:translateX(-50%);white-space:nowrap;
+  max-width:118px;overflow:hidden;text-overflow:ellipsis;font-family:var(--mono);font-size:9.5px;color:var(--ink);
+  background:rgba(255,255,255,.96);border:1px solid var(--line);padding:2px 7px;border-radius:6px;
   box-shadow:0 6px 14px -8px rgba(24,21,19,.4);line-height:1.4;pointer-events:none}
 .mdet:hover .mtag{border-color:var(--pink);color:var(--pink)}
+#realmap.filtering .mdet .mtag{background:rgba(255,46,132,.22);color:var(--pink);border-color:var(--pink);font-weight:700}
 @keyframes pop{from{opacity:0;transform:translate(-50%,-50%) scale(.6)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
 
 /* ── window (light app) ───────────────────── */
@@ -455,7 +456,8 @@ function toggleVerb(k){ setAct(cur===k?'all':k); }
 let cur='all';
 /* ── real yandex map — the only map view now ───────── */
 const YANDEX_KEY = "cf6b4e3f-1f3d-4458-ad2c-0de5b9bbd247";
-let realMapReady=false, ymap=null, clusterer=null, placemarks={}, PinLayout=null;
+let realMapReady=false, ymap=null, clusterer=null, markerLayer=null, placemarks={}, PinLayout=null;
+const CLUSTER_MAX_ZOOM = 11;
 
 function loadRealMap(){
   if(YANDEX_KEY.includes('YANDEX_MAPS_API_KEY_HERE')){document.getElementById('realhint').classList.add('show');return;}
@@ -469,40 +471,52 @@ function loadRealMap(){
 
 function initRealMap(){
   PinLayout = ymaps.templateLayoutFactory.createClass(
-    '<div class="mdet"><div class="box"></div><div class="pin">$[properties.pinEmoji]</div><div class="mtag">$[properties.placeName]</div></div>'
+    '<div class="mdet" data-place-id="$[properties.placeId]"><div class="box"><div class="pin">$[properties.pinEmoji]</div></div><div class="mtag">$[properties.placeName]</div></div>'
   );
   ymap = new ymaps.Map('realmap', {center:[59.936,30.325], zoom:12, controls:['zoomControl']}, {suppressMapOpenBlock:true});
   clusterer = new ymaps.Clusterer({
     preset:'islands#pinkClusterIcons',
     groupByCoordinates:false,
+    gridSize:32,
     clusterDisableClickZoom:false,
     clusterOpenBalloonOnClick:false
   });
+  markerLayer = new ymaps.GeoObjectCollection();
   PLACES.forEach(p=>{
     const g=GEOBYID[p.id]; if(!g) return;
     const pm = new ymaps.Placemark(g.coords, {
       pinEmoji: p.pin,
+      placeId: p.id,
       placeName: p.name,
       hintContent: p.name
     }, {
       iconLayout: PinLayout,
-      iconShape: {type:'Rectangle', coordinates:[[-22,-18],[22,18]]},
-      iconOffset: [-22,-18]
+      iconShape: {type:'Rectangle', coordinates:[[-52,-18],[52,43]]},
+      iconOffset: [-19,-18]
     });
     pm.events.add('click', ()=>openWin(p));
     placemarks[p.id] = pm;
   });
-  clusterer.add(Object.values(placemarks));
   ymap.geoObjects.add(clusterer);
+  ymap.geoObjects.add(markerLayer);
+  ymap.events.add('boundschange', (e)=>{
+    if(e.get('newZoom') !== e.get('oldZoom')) updateRealMapMarkers(cur);
+  });
   realMapReady=true;
   updateRealMapMarkers(cur);
 }
 
 function updateRealMapMarkers(k){
   if(!realMapReady) return;
+  document.getElementById('realmap').classList.toggle('filtering', k!=='all');
   const visible = PLACES.filter(p=>k==='all'||p.acts.includes(k)).map(p=>placemarks[p.id]).filter(Boolean);
   clusterer.removeAll();
-  clusterer.add(visible);
+  markerLayer.removeAll();
+  if(ymap.getZoom() <= CLUSTER_MAX_ZOOM){
+    clusterer.add(visible);
+  }else{
+    visible.forEach(pm=>markerLayer.add(pm));
+  }
 }
 
 new IntersectionObserver((entries,obs)=>{
